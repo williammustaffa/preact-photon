@@ -193,10 +193,10 @@ export const Form = componentNode('form');
 Form.Group = componentNode('div', 'form-group');
 
 /** Basically `<input type="checkbox">` */
-Form.CheckBox = component( ({ class:className, name, checked, value, label, children, ...props }) => (
+Form.CheckBox = component( ({ class:className, name, checked, defaultChecked, value, label, children, ...props }) => (
 	<div {...props} class={c(className, 'checkbox')}>
 		<label>
-			<input type="checkbox" name={name} checked={checked} value={value} />
+			<input type="checkbox" name={name} checked={checked} value={value} defaultChecked={defaultChecked} />
 			{ label || null }
 			{ children }
 		</label>
@@ -204,10 +204,10 @@ Form.CheckBox = component( ({ class:className, name, checked, value, label, chil
 ));
 
 /** Basically `<input type="radio">` */
-Form.Radio = component( ({ class:className, name, checked, value, label, children, ...props }) => (
+Form.Radio = component( ({ class:className, name, checked, defaultChecked, value, label, children, ...props }) => (
 	<div {...props} class={c(className, 'radio')}>
 		<label>
-			<input type="radio" name={name} checked={checked} value={value} />
+			<input type="radio" name={name} checked={checked} value={value} defaultChecked={defaultChecked} />
 			{ label || null }
 			{ children }
 		</label>
