@@ -4,14 +4,14 @@ import { h } from 'preact';
 const EMPTY = {};
 
 /** @private */
-let component = render => (props=EMPTY) => render(props);
+let component = render => (props = EMPTY) => render(props);
 
 /** @private */
-let c = (...args) => [].concat(...args.filter( x => x )).join(' ');
+let classNames = (...args) => [].concat(...args.filter( x => x )).join(' ');
 
 /** @private */
-let componentNode = (Name, classes) => component( ({ children, ...props }) => (
-	<Name {...props} class={c(props.class, classes)}>{children}</Name>
+let componentNode = (Name, classes) => component(({ children, ...props }) => (
+	<Name {...props} className={classNames(props.class, classes)}>{children}</Name>
 ));
 
 /** App "footer" bar, shown at the bottom of a window.
@@ -74,7 +74,7 @@ export const Button = component( ({
 	form,
 	...props
 }) => (
-	<button {...props} class={c(
+	<button {...props} className={classNames(
 		className,
 		`btn btn-${type || (primary ? 'primary' : 'default')}`,
 		dropdown && 'btn-dropdown',
@@ -94,7 +94,7 @@ export const Button = component( ({
  *	<Icon name="close" />
  */
 export const Icon = component( ({ class:className, text, name, children, ...props }) => (
-	<span {...props} class={c(className, `icon icon-${name}`, text && 'icon-text')}>{ children }</span>
+	<span {...props} className={classNames(className, `icon icon-${name}`, text && 'icon-text')}>{ children }</span>
 ));
 
 
@@ -116,8 +116,8 @@ export const TabGroup = componentNode('div', 'tab-group');
  *	<Tab close="false">title</Tab>
  */
 export const Tab = component( ({ class:className, close, children, ...props }) => (
-	<div class={c(className, 'tab-item')}>
-		{ String(close)==='false' ? null : <Icon name="cancel" class="icon-close-tab" /> }
+	<div className={classNames(className, 'tab-item')}>
+		{ String(close)==='false' ? null : <Icon name="cancel" className="icon-close-tab" /> }
 		{ children }
 	</div>
 ));
@@ -150,7 +150,7 @@ NavGroup.Title = componentNode('h5', 'nav-group-title');
  *	<NavGroup.Item icon="folder">Documents</NavGroup.Item>
  */
 NavGroup.Item = component( ({ class:className, icon, children, ...props }) => (
-	<span {...props} class={c(className, 'nav-group-item')}>
+	<span {...props} className={classNames(className, 'nav-group-item')}>
 		{ icon ? (<Icon name={icon} />) : null }
 		{ children }
 	</span>
@@ -193,10 +193,10 @@ export const Form = componentNode('form');
 Form.Group = componentNode('div', 'form-group');
 
 /** Basically `<input type="checkbox">` */
-Form.CheckBox = component( ({ class:className, name, checked, defaultChecked, value, label, children, ...props }) => (
-	<div {...props} class={c(className, 'checkbox')}>
+Form.CheckBox = component(({ className, label, children, ...props }) => (
+	<div className={classNames(className, 'checkbox')}>
 		<label>
-			<input type="checkbox" name={name} checked={checked} value={value} defaultChecked={defaultChecked} />
+			<input type="checkbox" {...props} />
 			{ label || null }
 			{ children }
 		</label>
@@ -204,10 +204,10 @@ Form.CheckBox = component( ({ class:className, name, checked, defaultChecked, va
 ));
 
 /** Basically `<input type="radio">` */
-Form.Radio = component( ({ class:className, name, checked, defaultChecked, value, label, children, ...props }) => (
-	<div {...props} class={c(className, 'radio')}>
+Form.Radio = component(({ className, label, children, ...props }) => (
+	<div className={classNames(className, 'radio')}>
 		<label>
-			<input type="radio" name={name} checked={checked} value={value} defaultChecked={defaultChecked} />
+			<input type="radio" {...props} />
 			{ label || null }
 			{ children }
 		</label>
@@ -220,7 +220,7 @@ Form.Actions = componentNode('div', 'form-actions');
 
 /** Just an enhanced `<table>` */
 export const Table = component( ({ class:className, striped, children, ...props }) => (
-	<table {...props} class={c(className, striped && 'table-striped')}>
+	<table {...props} className={classNames(className, striped && 'table-striped')}>
 		{ children }
 	</table>
 ));
